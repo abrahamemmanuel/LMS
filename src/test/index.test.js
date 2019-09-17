@@ -7,6 +7,6 @@ describe('homepage', () => {
     request(app)
       .get('/')
       .expect(200)
-      .expect(/Server runnig on port 5000/, done);
+      .expect(/Welcome to the Loan Management System/, done);
   });
 });

@@ -4,9 +4,7 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 app.get('/', (req, res) =>
-  res.status(200).json({
-    success: 'Welcome to the Loan Management System'
-  })
+  res.status(200).json('Welcome to the Loan Management System')
 );
 
 if (!module.parent) {
