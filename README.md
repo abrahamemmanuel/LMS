@@ -1,3 +1,3 @@
 # Loan Management System
 
-[![Build Status](https://travis-ci.com/abrahamemmanuel/LMS.svg?token=52xwvj5b6hpppwaxoqPn&branch=master)](https://travis-ci.com/abrahamemmanuel/LMS)
+[![Build](https://travis-ci.org/abrahamemmanuel/LMS.svg?branch=master)](https://travis-ci.org/abrahamemmanuel/LMS) [![Coverage Status](https://coveralls.io/repos/github/abrahamemmanuel/LMS/badge.svg?branch=master)](https://coveralls.io/github/abrahamemmanuel/LMS?branch=master)
