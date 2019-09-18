@@ -32,4 +32,5 @@ if (!newLocal) {
 // Load routes
 const route = router;
 app.use('/api', route);
+
 export default app;
