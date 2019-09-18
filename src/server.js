@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import key from './config/keys';
+import router from './routes/api';
 
 // Create express server instance
 const app = express();
@@ -27,4 +28,8 @@ if (!newLocal) {
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));
 }
+
+// Load routes
+const route = router;
+app.use('/api', route);
 export default app;
