@@ -7,8 +7,8 @@ script:
   - npm test
   
 after_success:
-  - npm run cover
-  - bash <(curl -s https://codecov.io/bash)
+  - istanbul cover ./node_modules/mocha/bin/_mocha --reporter lcovonly -- -R spec
+  - codecov
 
 
 

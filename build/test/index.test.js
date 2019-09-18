@@ -9,7 +9,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 /* eslint-disable no-undef */
 describe('homepage', function () {
   it('Welcomes the user', function (done) {
-    (0, _supertest["default"])(_server["default"]).get('/').expect(200).expect(/Welcome To Fast Food Fast/, done);
+    (0, _supertest["default"])(_server["default"]).get('/').expect(200).expect(/Welcome to the Loan Management System/, done);
   });
 });
 //# sourceMappingURL=index.test.js.map
