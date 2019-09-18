@@ -11,6 +11,8 @@ var _mongoose = _interopRequireDefault(require("mongoose"));
 
 var _keys = _interopRequireDefault(require("./config/keys"));
 
+var _api = _interopRequireDefault(require("./routes/api"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 // Create express server instance
@@ -40,8 +42,11 @@ if (!newLocal) {
   })["catch"](function (err) {
     return console.log(err);
   });
-}
+} // Load routes
 
+
+var route = _api["default"];
+app.use('/api', route);
 var _default = app;
 exports["default"] = _default;
 //# sourceMappingURL=server.js.map
