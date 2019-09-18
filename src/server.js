@@ -14,7 +14,7 @@ app.get('/', (req, res) =>
 
 // DB Config
 const db = key.LOCALDB_URI;
-
+// Check env
 const newLocal = module.parent;
 if (!newLocal) {
   app.listen(key.env, () => console.log(`Server running on port ${key.env}`));
