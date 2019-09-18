@@ -23,7 +23,8 @@ app.get('/', function (req, res) {
   return res.status(200).json('Welcome to the Loan Management System');
 }); // DB Config
 
-var db = _keys["default"].LOCALDB_URI;
+var db = _keys["default"].LOCALDB_URI; // Check env
+
 var newLocal = module.parent;
 
 if (!newLocal) {
