@@ -23,20 +23,21 @@ app.get('/', function (req, res) {
   return res.status(200).json('Welcome to the Loan Management System');
 }); // DB Config
 
-var db = _keys["default"].LOCALDB_URI; // Connect to MongDB
+var db = _keys["default"].LOCALDB_URI;
+var newLocal = module.parent;
 
-_mongoose["default"].connect(db, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(function () {
-  return console.log('MongoDB Connected');
-})["catch"](function (err) {
-  return console.log(err);
-});
-
-if (!module.parent) {
+if (!newLocal) {
   app.listen(_keys["default"].env, function () {
     return console.log("Server running on port ".concat(_keys["default"].env));
+  }); // Connect to MongDB
+
+  _mongoose["default"].connect(db, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }).then(function () {
+    return console.log('MongoDB Connected');
+  })["catch"](function (err) {
+    return console.log(err);
   });
 }
 
