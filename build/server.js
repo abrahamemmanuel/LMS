@@ -18,14 +18,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 // Create express server instance
 var app = (0, _express["default"])();
 /**
- * @description Get index route
+ * @route GET /
+ * @desc Get index route
+ * @access Public
  */
 
 app.get('/', function (req, res) {
   return res.status(200).json('Welcome to the Loan Management System');
-}); // DB Config
+}); // Bodyparser
 
-var db = _keys["default"].LOCALDB_URI; // Check env
+app.use(_express["default"].urlencoded({
+  extended: true
+})); // DB Config
+
+var db = _keys["default"].LOCALDB_URI; // Check env module
 
 var newLocal = module.parent;
 
