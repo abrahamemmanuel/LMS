@@ -23,7 +23,7 @@ app.use(
 );
 
 // DB Config
-const db = key.LOCALDB_URI;
+const db = key.LOCALDB_URI || key.MONGODB_URI;
 
 // Check env module
 const newLocal = module.parent;
@@ -40,7 +40,7 @@ if (!newLocal) {
 }
 
 // Load routes
-const route = router;
-app.use('/api', route);
+const routes = router;
+app.use('/api', routes);
 
 export default app;

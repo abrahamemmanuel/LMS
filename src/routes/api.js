@@ -12,6 +12,7 @@ import UsersController from '../app/http/controllers/UsersController';
 |
 */
 
+// create a new instance of express router
 const router = express.Router();
 
 // Create new instance of the controllers here
@@ -22,6 +23,6 @@ const usersController = new UsersController();
  * @desc Register User
  * @access Public
  */
-router.get('/users/register', usersController.RegisterUser);
+router.post('/users/register', usersController.RegisterUser);
 
 export default router;

@@ -7,7 +7,11 @@ exports["default"] = void 0;
 
 var _gravatar = _interopRequireDefault(require("gravatar"));
 
+var _bcryptjs = _interopRequireDefault(require("bcryptjs"));
+
 var _User = _interopRequireDefault(require("../../../database/models/User"));
+
+var _helpers = _interopRequireDefault(require("../../../utils/helpers"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -28,8 +32,8 @@ function () {
     key: "RegisterUser",
 
     /**
-     * @param: req, res
-     * @desc RegisterUser create and save a new user record into users collection
+     * @params req, res
+     * @desc RegisterUser creates and save a new user record into users collection
      * @return 200 status code if and only if a new user is created and saved to the users collection
      */
     value: function RegisterUser(req, res) {
@@ -61,7 +65,25 @@ function () {
             name: req.body.name,
             email: req.body.email,
             avatar: avatar,
-            password: req.body.password
+            password: (0, _helpers["default"])(req.body.password)
+          }); // Hash password with bcrypt
+          // const bcrypt = bcryptjs;
+          // bcrypt.genSalt(10, (err, salt) => {
+          //   bcrypt.hash(newUser.password, salt, (err, hash) => {
+          //     newUser.password = hash;
+          //     // Save user
+          //     newUser
+          //       .save()
+          //       .then(user => res.status(200).json(user))
+          //       .catch(err => console.log(err));
+          //   });
+          // });
+          // Save User
+
+          newUser.save().then(function (user) {
+            res.status(200).json(user);
+          })["catch"](function (err) {
+            return console.log(err);
           });
         }
       });

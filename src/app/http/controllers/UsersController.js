@@ -1,7 +1,10 @@
+/* eslint-disable no-shadow */
 /* eslint-disable consistent-return */
 /* eslint-disable no-return-assign */
 import gravatar from 'gravatar';
+import bcryptjs from 'bcryptjs';
 import User from '../../../database/models/User';
+import encrypt from '../../../utils/helpers';
 
 class UsersController {
   /**
@@ -31,8 +34,16 @@ class UsersController {
           name: req.body.name,
           email: req.body.email,
           avatar,
-          password: req.body.password
+          password: encrypt(req.body.password) // Hash password with bcrypt
         });
+
+        // Save User
+        newUser
+          .save()
+          .then(user => {
+            res.status(200).json(user);
+          })
+          .catch(err => console.log(err));
       }
     });
   }

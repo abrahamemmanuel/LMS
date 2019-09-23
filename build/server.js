@@ -31,7 +31,7 @@ app.use(_express["default"].urlencoded({
   extended: true
 })); // DB Config
 
-var db = _keys["default"].LOCALDB_URI; // Check env module
+var db = _keys["default"].LOCALDB_URI || _keys["default"].MONGODB_URI; // Check env module
 
 var newLocal = module.parent;
 
@@ -51,8 +51,8 @@ if (!newLocal) {
 } // Load routes
 
 
-var route = _api["default"];
-app.use('/api', route);
+var routes = _api["default"];
+app.use('/api', routes);
 var _default = app;
 exports["default"] = _default;
 //# sourceMappingURL=server.js.map
