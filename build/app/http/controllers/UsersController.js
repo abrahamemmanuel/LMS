@@ -65,20 +65,9 @@ function () {
             name: req.body.name,
             email: req.body.email,
             avatar: avatar,
-            password: (0, _helpers["default"])(req.body.password)
-          }); // Hash password with bcrypt
-          // const bcrypt = bcryptjs;
-          // bcrypt.genSalt(10, (err, salt) => {
-          //   bcrypt.hash(newUser.password, salt, (err, hash) => {
-          //     newUser.password = hash;
-          //     // Save user
-          //     newUser
-          //       .save()
-          //       .then(user => res.status(200).json(user))
-          //       .catch(err => console.log(err));
-          //   });
-          // });
-          // Save User
+            password: (0, _helpers["default"])(req.body.password) // Hash password with bcrypt
+
+          }); // Save User
 
           newUser.save().then(function (user) {
             res.status(200).json(user);
