@@ -9,6 +9,8 @@ var _express = _interopRequireDefault(require("express"));
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
 
+var _bodyParser = _interopRequireDefault(require("body-parser"));
+
 var _keys = _interopRequireDefault(require("./config/keys"));
 
 var _api = _interopRequireDefault(require("./routes/api"));
@@ -16,7 +18,13 @@ var _api = _interopRequireDefault(require("./routes/api"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 // Create express server instance
-var app = (0, _express["default"])();
+var app = (0, _express["default"])(); //middleware to parse requests of extended urlencoded
+
+app.use(_bodyParser["default"].urlencoded({
+  extended: false
+})); //middleware to parse requests of content-type - application/json
+
+app.use(_bodyParser["default"].json());
 /**
  * @route GET /
  * @desc Get index route
@@ -25,11 +33,7 @@ var app = (0, _express["default"])();
 
 app.get('/', function (req, res) {
   return res.status(200).json('Welcome to the Loan Management System');
-}); // Bodyparser
-
-app.use(_express["default"].urlencoded({
-  extended: true
-})); // DB Config
+}); // DB Config
 
 var db = _keys["default"].LOCALDB_URI || _keys["default"].MONGODB_URI; // Check env module
 
