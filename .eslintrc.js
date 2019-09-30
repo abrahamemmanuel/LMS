@@ -22,7 +22,9 @@ module.exports = {
         "no-process-exit": "off",
         "object-shorthand": "off",
         "class-methods-use-this": "off",
-        "no-undef": "off"
+        "no-undef": "off",
+        "no-else-return": "off",
+        "no-unused-vars": "off"
     },
 
 };
