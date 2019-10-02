@@ -1,0 +1,3 @@
+[error] "2019-10-02T12:38:10.205Z"  'error from lcovParse: ' 'Failed to parse string'
+[error] "2019-10-02T12:38:10.208Z"  'input: ' ''
+[error] "2019-10-02T12:38:10.208Z"  'error from convertLcovToCoveralls'

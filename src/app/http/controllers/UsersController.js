@@ -72,7 +72,7 @@ class UsersController {
       if (!user) {
         // if user's does not exists then
         // return a 404 status code to the user
-        return res.status(401).json({
+         res.status(401).json({
           message: 'User not found'
         });
       }
@@ -80,7 +80,7 @@ class UsersController {
       if (isMatch) {
         // if true then
         // return 200 status code
-        return res.status(200).json({
+         res.status(200).json({
           message: 'Success'
         });
       } else {
