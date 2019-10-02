@@ -7,7 +7,7 @@ import app from '../server';
 import assert from 'assert';
 import User from '../database/models/User';
 
-describe('App basics', () => {
+describe('Should get index route', () => {
 
   it('get index route', done => {
     request(app)

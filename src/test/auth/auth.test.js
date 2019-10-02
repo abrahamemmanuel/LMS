@@ -5,9 +5,9 @@ import faker from 'faker';
 import {
   expect
 } from 'chai';
-import app from '../server';
+import app from '../../server';
 import assert from 'assert';
-import User from '../database/models/User';
+import User from '../../database/models/User';
 
 describe('App basics', () => {
   beforeEach(done => {
