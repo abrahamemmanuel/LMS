@@ -66,17 +66,17 @@ function () {
             password: req.body.password
           }); // hash password
 
-          var salt = _bcryptjs["default"].genSaltSync(10);
+          _bcryptjs["default"].genSalt(10, function (err, salt) {
+            _bcryptjs["default"].hash(newUser.password, salt, function (err, hash) {
+              // if (err) throw err;
+              newUser.password = hash; // Save user
 
-          var hash = _bcryptjs["default"].hashSync(newUser.password, salt); // set hash password to the newUser object
-
-
-          newUser.password = hash; // Save User
-
-          newUser.save().then(function (user) {
-            return res.status(201).json(user);
-          })["catch"](function (err) {
-            return console.log(err);
+              newUser.save().then(function (user) {
+                return res.status(200).json({
+                  message: 'User created successfully'
+                });
+              });
+            });
           });
         }
       });
@@ -100,7 +100,7 @@ function () {
           // if user's does not exists then
           // return a 404 status code to the user
           res.status(401).json({
-            message: 'User not found'
+            error: 'User not found'
           });
         }
 
@@ -115,7 +115,7 @@ function () {
         } else {
           // else return 404 password incorrect
           return res.status(401).json({
-            message: 'Password Incorrect'
+            error: 'Password Incorrect'
           });
         }
       });

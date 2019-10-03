@@ -40,19 +40,18 @@ class UsersController {
           password: req.body.password
         });
 
-        // hash password
-        const salt = bcrypt.genSaltSync(10);
-        const hash = bcrypt.hashSync(newUser.password, salt);
-        // set hash password to the newUser object
-        newUser.password = hash;
+            // hash password
+            bcrypt.genSalt(10, (err, salt) => {
+              bcrypt.hash(newUser.password, salt, (err, hash) => {
+                // if (err) throw err;
+                newUser.password = hash;
 
-        // Save User
-        newUser
-          .save()
-          .then(user => {
-           return res.status(201).json(user);
-          })
-          .catch(err => console.log(err));
+                // Save user
+                newUser.save().then(user => {
+                  return res.status(200).json({ message: 'User created successfully'});
+                })
+              });
+            });
       }
     });
   }
@@ -73,7 +72,7 @@ class UsersController {
         // if user's does not exists then
         // return a 404 status code to the user
          res.status(401).json({
-          message: 'User not found'
+          error: 'User not found'
         });
       }
       const isMatch = bcrypt.compareSync(password.toString(), user.password);
@@ -86,7 +85,7 @@ class UsersController {
       } else {
         // else return 404 password incorrect
         return res.status(401).json({
-          message: 'Password Incorrect'
+          error: 'Password Incorrect'
         });
       }
     });

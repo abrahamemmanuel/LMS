@@ -2,14 +2,12 @@
 import request from 'supertest';
 import mongoose from 'mongoose';
 import faker from 'faker';
-import {
-  expect
-} from 'chai';
+import { expect } from 'chai';
 import app from '../../server';
 import assert from 'assert';
 import User from '../../database/models/User';
 
-describe('App basics', () => {
+describe('[Authentication] /auth Testing', () => {
   beforeEach(done => {
     //Before each test we empty the database
     User.deleteMany({}, err => {
@@ -17,14 +15,12 @@ describe('App basics', () => {
     });
   });
 
-  it('should be able to sign up a new user', done => {
-    const email = 'john@test.com';
-    const name = 'test';
-    let user = {
-      name: name,
-      email: email,
-      password: '123456'
-    };
+  let user = {
+    name: 'jane',
+    email: 'jane@test.com',
+    password: '123456'
+  };
+  it('should be able to sign up new user', done => {
     request(app)
       .post('/api/auth/register/')
       .send(user)
@@ -32,19 +28,18 @@ describe('App basics', () => {
       .expect('Content-Type', /json/)
       .expect(201)
       .end((err, res) => {
-        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('message');
         expect(res.body).to.have.deep.property(
-          'user.email',
-          'email'
+          'message',
+          'User created successfully'
         );
         done();
       });
   });
 
   it('should not be able to sign in user with invalid email', done => {
-    const name = 'test';
     let user = {
-      email: 'test@test.com',
+      email: 'jane@test.com9',
       password: '123456'
     };
     request(app)
@@ -55,12 +50,13 @@ describe('App basics', () => {
       .expect(401)
       .end((err, res) => {
         expect(res.body).to.be.an('object');
-        expect(res.body).to.have.property('message');
+        expect(res.body).to.have.property('error');
+        expect(res.body).to.have.deep.property('error', 'User not found');
         done();
       });
   });
 
-  after(function (done) {
+  after(function(done) {
     return mongoose.disconnect(done);
   });
 });

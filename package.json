@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test nyc node_modules/.bin/mocha ./src/test/**/**.test.js",
-    "cover": "nyc report --reporter=text-summary",
+    "cover": "nyc report --reporter=text",
     "dev": "nodemon ./build/server/server.js --exec babel-node",
     "heroku-postbuild": "npm install",
     "lint": "eslint **/src/*.js",
@@ -73,7 +73,6 @@
       "@babel/register"
     ],
     "reporter": [
-      "text-summary",
       "text"
     ],
     "sourceMap": false,

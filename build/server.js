@@ -53,7 +53,7 @@ if (!newLocal) {
   app.listen(_keys["default"].env, function () {
     return console.log("Server running on port ".concat(_keys["default"].env));
   });
-} // Load routes
+} else {} // Load routes
 
 
 var routes = _api["default"];
