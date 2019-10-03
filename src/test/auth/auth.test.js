@@ -8,10 +8,16 @@ import assert from 'assert';
 import User from '../../database/models/User';
 
 describe('[Authentication] /auth Testing', () => {
-  const email = faker.internet.email();
+  beforeEach(done => {
+    //Before each test we empty the database
+    User.deleteMany({}, err => {
+      done();
+    });
+  });
+
   let user = {
     name: 'jane',
-    email: email,
+    email: 'jane@test.com',
     password: '123456'
   };
   it('should be able to sign up new user', done => {
@@ -48,5 +54,9 @@ describe('[Authentication] /auth Testing', () => {
         expect(res.body).to.have.deep.property('error', 'User not found');
         done();
       });
+  });
+
+  after(function(done) {
+    return mongoose.disconnect(done);
   });
 });
