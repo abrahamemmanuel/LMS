@@ -21,7 +21,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var app = (0, _express["default"])(); //middleware to parse requests of extended urlencoded
 
 app.use(_bodyParser["default"].urlencoded({
-  extended: true
+  extended: false
 })); //middleware to parse requests of content-type - application/json
 
 app.use(_bodyParser["default"].json());
@@ -35,7 +35,7 @@ app.get('/', function (req, res) {
   return res.status(200).json('Welcome to the Loan Management System');
 }); // DB Config
 
-var db = process.env.MONGODB_URI || _keys["default"].LOCALDB_URI; // Connect to MongDB
+var db = _keys["default"].LOCALDB_URI || _keys["default"].MONGODB_URI; // Connect to MongDB
 
 _mongoose["default"].connect(db, {
   useNewUrlParser: true,

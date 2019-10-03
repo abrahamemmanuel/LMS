@@ -21,7 +21,7 @@ class UsersController {
         // if true then
         // return 400 status code and display 'Email already exist' to the user
         return res.status(400).json({
-          email: 'Email already exist'
+          error: 'Email already exist'
         });
       } else {
         // Otherwise

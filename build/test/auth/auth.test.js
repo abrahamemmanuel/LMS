@@ -23,7 +23,8 @@ describe('[Authentication] /auth Testing', function () {
     _User["default"].deleteMany({}, function (err) {
       done();
     });
-  });
+  }); // const email = faker.internet.email();
+
   var user = {
     name: 'jane',
     email: 'jane@test.com',
@@ -48,7 +49,7 @@ describe('[Authentication] /auth Testing', function () {
       done();
     });
   });
-  after(function (done) {
+  afterEach(function (done) {
     return _mongoose["default"].disconnect(done);
   });
 });

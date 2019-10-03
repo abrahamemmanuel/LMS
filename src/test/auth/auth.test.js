@@ -14,7 +14,7 @@ describe('[Authentication] /auth Testing', () => {
       done();
     });
   });
-
+// const email = faker.internet.email();
   let user = {
     name: 'jane',
     email: 'jane@test.com',
@@ -35,15 +35,17 @@ describe('[Authentication] /auth Testing', () => {
         );
         done();
       });
+
   });
 
-  it('should not be able to sign in user with invalid email', done => {
+  it('should not be able to sign up user with existing email in the database', done => {
     let user = {
-      email: 'jane@test.com9',
+      name: "jane",
+      email: 'jane@test.com',
       password: '123456'
     };
     request(app)
-      .post('/api/auth/login/')
+      .post('/api/auth/register/')
       .send(user)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -51,12 +53,12 @@ describe('[Authentication] /auth Testing', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('error');
-        expect(res.body).to.have.deep.property('error', 'User not found');
+        expect(res.body).to.have.deep.property('error', 'Email already exist');
         done();
       });
   });
 
-  after(function(done) {
+  afterEach(function(done) {
     return mongoose.disconnect(done);
   });
 });
