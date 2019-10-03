@@ -19,10 +19,17 @@ const router = express.Router();
 const usersController = new UsersController();
 
 /**
- * @route POST api/users/register
- * @desc Register User
- * @access Public
+ * @route   POST api/users/register
+ * @desc    Register User
+ * @access  Public
  */
-router.post('/users/register', usersController.RegisterUser);
+router.post('/auth/register', usersController.RegisterUser);
+
+/**
+ * @route   POST api/users/login
+ * @desc    Login User
+ * @access  Public
+ */
+router.post('/auth/login', usersController.LoginUser);
 
 export default router;

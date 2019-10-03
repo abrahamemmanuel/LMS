@@ -27,12 +27,19 @@ var router = _express["default"].Router(); // Create new instance of the control
 
 var usersController = new _UsersController["default"]();
 /**
- * @route POST api/users/register
- * @desc Register User
- * @access Public
+ * @route   POST api/users/register
+ * @desc    Register User
+ * @access  Public
  */
 
-router.post('/users/register', usersController.RegisterUser);
+router.post('/auth/register', usersController.RegisterUser);
+/**
+ * @route   POST api/users/login
+ * @desc    Login User
+ * @access  Public
+ */
+
+router.post('/auth/login', usersController.LoginUser);
 var _default = router;
 exports["default"] = _default;
 //# sourceMappingURL=api.js.map

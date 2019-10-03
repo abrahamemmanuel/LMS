@@ -11,8 +11,6 @@ var _bcryptjs = _interopRequireDefault(require("bcryptjs"));
 
 var _User = _interopRequireDefault(require("../../../database/models/User"));
 
-var _helpers = _interopRequireDefault(require("../../../utils/helpers"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -32,8 +30,8 @@ function () {
     key: "RegisterUser",
 
     /**
-     * @params req, res
-     * @desc RegisterUser creates and save a new user record into users collection
+     * @params  req, res
+     * @desc    RegisterUser creates and save a new user record into users collection
      * @return 200 status code if and only if a new user is created and saved to the users collection
      */
     value: function RegisterUser(req, res) {
@@ -65,25 +63,59 @@ function () {
             name: req.body.name,
             email: req.body.email,
             avatar: avatar,
-            password: (0, _helpers["default"])(req.body.password)
-          }); // Hash password with bcrypt
-          // const bcrypt = bcryptjs;
-          // bcrypt.genSalt(10, (err, salt) => {
-          //   bcrypt.hash(newUser.password, salt, (err, hash) => {
-          //     newUser.password = hash;
-          //     // Save user
-          //     newUser
-          //       .save()
-          //       .then(user => res.status(200).json(user))
-          //       .catch(err => console.log(err));
-          //   });
-          // });
-          // Save User
+            password: req.body.password
+          }); // hash password
 
-          newUser.save().then(function (user) {
-            res.status(200).json(user);
-          })["catch"](function (err) {
-            return console.log(err);
+          _bcryptjs["default"].genSalt(10, function (err, salt) {
+            _bcryptjs["default"].hash(newUser.password, salt, function (err, hash) {
+              // if (err) throw err;
+              newUser.password = hash; // Save user
+
+              newUser.save().then(function (user) {
+                return res.status(200).json({
+                  message: 'User created successfully'
+                });
+              });
+            });
+          });
+        }
+      });
+    }
+    /**
+     * @params  req, res
+     * @desc    LoginUser: find and check if user record exists in the users collection
+     * @return 200 status code if and only if the user's records exists in the users collection
+     */
+
+  }, {
+    key: "LoginUser",
+    value: function LoginUser(req, res) {
+      var email = req.body.email;
+      var password = req.body.password; // Find user by email
+
+      _User["default"].findOne({
+        email: email
+      }).then(function (user) {
+        if (!user) {
+          // if user's does not exists then
+          // return a 404 status code to the user
+          res.status(401).json({
+            error: 'User not found'
+          });
+        }
+
+        var isMatch = _bcryptjs["default"].compareSync(password.toString(), user.password);
+
+        if (isMatch) {
+          // if true then
+          // return 200 status code
+          res.status(200).json({
+            message: 'Success'
+          });
+        } else {
+          // else return 404 password incorrect
+          return res.status(401).json({
+            error: 'Password Incorrect'
           });
         }
       });

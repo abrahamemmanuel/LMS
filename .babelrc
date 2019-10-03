@@ -4,7 +4,7 @@
     ],
     "env":{
         "test":{
-            "plugins": ["istanbul","@babel/plugin-proposal-class-properties"]
+            "plugins": ["istanbul", "@babel/plugin-proposal-class-properties"]
         }
     }
 }
