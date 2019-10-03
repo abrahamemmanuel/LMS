@@ -18,14 +18,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 /* eslint-disable no-undef */
 describe('[Authentication] /auth Testing', function () {
-  beforeEach(function (done) {
-    //Before each test we empty the database
-    _User["default"].deleteMany({}, function (err) {
-      done();
-    });
-  });
+  var email = _faker["default"].internet.email();
+
   var user = {
-    email: 'jane@test.com',
+    name: 'jane',
+    email: email,
     password: '123456'
   };
   it('should be able to sign up new user', function (done) {
@@ -34,7 +31,6 @@ describe('[Authentication] /auth Testing', function () {
       (0, _chai.expect)(res.body).to.have.deep.property('message', 'User created successfully');
       done();
     });
-    console.log(user.password);
   });
   it('should not be able to sign in user with invalid email', function (done) {
     var user = {
@@ -47,10 +43,6 @@ describe('[Authentication] /auth Testing', function () {
       (0, _chai.expect)(res.body).to.have.deep.property('error', 'User not found');
       done();
     });
-    console.log(user.password);
-  });
-  after(function (done) {
-    return _mongoose["default"].disconnect(done);
   });
 });
 //# sourceMappingURL=auth.test.js.map
