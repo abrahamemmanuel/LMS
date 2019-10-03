@@ -35,7 +35,7 @@ app.get('/', function (req, res) {
   return res.status(200).json('Welcome to the Loan Management System');
 }); // DB Config
 
-var db = _keys["default"].LOCALDB_URI || _keys["default"].MONGODB_URI; // Connect to MongDB
+var db = process.env.MONGODB_URI || _keys["default"].LOCALDB_URI; // Connect to MongDB
 
 _mongoose["default"].connect(db, {
   useNewUrlParser: true,
