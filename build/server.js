@@ -36,7 +36,7 @@ app.get('/', function (req, res) {
 }); // DB Config
 
 process.env.NODE_ENV = _keys["default"].MONGODB_URI;
-var db = process.env.NODE_ENV; // Connect to MongDB
+var db = _keys["default"].LOCALDB_URI || process.env.NODE_ENV; // Connect to MongDB
 
 _mongoose["default"].connect(db, {
   useNewUrlParser: true,
