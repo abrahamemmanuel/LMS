@@ -18,6 +18,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 /* eslint-disable no-undef */
 describe('[Authentication] /auth Testing', function () {
+<<<<<<< HEAD
   beforeEach(function (done) {
     //Before each test we empty the database
     _User["default"].deleteMany({}, function (err) {
@@ -25,6 +26,14 @@ describe('[Authentication] /auth Testing', function () {
     });
   }); // const email = faker.internet.email();
 
+=======
+  // beforeEach(done => {
+  //   //Before each test we empty the database
+  //   User.deleteMany({}, err => {
+  //     done();
+  //   });
+  // });
+>>>>>>> master
   var user = {
     name: 'jane',
     email: 'jane@test.com',
@@ -34,6 +43,13 @@ describe('[Authentication] /auth Testing', function () {
     (0, _supertest["default"])(_server["default"]).post('/api/auth/register/').send(user).set('Accept', 'application/json').expect('Content-Type', /json/).expect(201).end(function (err, res) {
       (0, _chai.expect)(res.body).to.have.property('message');
       (0, _chai.expect)(res.body).to.have.deep.property('message', 'User created successfully');
+      done();
+    });
+  });
+  it('should not be able to sign up new user with an existing email in the database', function (done) {
+    (0, _supertest["default"])(_server["default"]).post('/api/auth/register/').send(user).set('Accept', 'application/json').expect('Content-Type', /json/).expect(400).end(function (err, res) {
+      (0, _chai.expect)(res.body).to.have.property('email');
+      (0, _chai.expect)(res.body).to.have.deep.property('email', 'Email already exist');
       done();
     });
   });
@@ -49,7 +65,23 @@ describe('[Authentication] /auth Testing', function () {
       done();
     });
   });
+<<<<<<< HEAD
   afterEach(function (done) {
+=======
+  it('should not be able to sign in user with invalid password', function (done) {
+    var user = {
+      email: 'jane@test.com',
+      password: 'BadPass!'
+    };
+    (0, _supertest["default"])(_server["default"]).post('/api/auth/login/').send(user).set('Accept', 'application/json').expect('Content-Type', /json/).expect(401).end(function (err, res) {
+      (0, _chai.expect)(res.body).to.be.an('object');
+      (0, _chai.expect)(res.body).to.have.property('error');
+      (0, _chai.expect)(res.body).to.have.deep.property('error', 'Password incorrect');
+      done();
+    });
+  });
+  after(function (done) {
+>>>>>>> master
     return _mongoose["default"].disconnect(done);
   });
 });
