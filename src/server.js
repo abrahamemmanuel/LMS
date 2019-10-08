@@ -24,7 +24,8 @@ app.get('/', (req, res) =>
 );
 
 // DB Config
-const db = process.env.MONGODB_URI || key.LOCALDB_URI;
+process.env.NODE_ENV = key.MONGODB_URI;
+const db = process.env.NODE_ENV;
 
   // Connect to MongDB
   mongoose

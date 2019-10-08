@@ -18,12 +18,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 /* eslint-disable no-undef */
 describe('[Authentication] /auth Testing', function () {
-  beforeEach(function (done) {
-    //Before each test we empty the database
-    _User["default"].deleteMany({}, function (err) {
-      done();
-    });
-  });
+  // beforeEach(done => {
+  //   //Before each test we empty the database
+  //   User.deleteMany({}, err => {
+  //     done();
+  //   });
+  // });
   var user = {
     name: 'jane',
     email: 'jane@test.com',
@@ -36,6 +36,13 @@ describe('[Authentication] /auth Testing', function () {
       done();
     });
   });
+  it('should not be able to sign up new user with an existing email in the database', function (done) {
+    (0, _supertest["default"])(_server["default"]).post('/api/auth/register/').send(user).set('Accept', 'application/json').expect('Content-Type', /json/).expect(400).end(function (err, res) {
+      (0, _chai.expect)(res.body).to.have.property('email');
+      (0, _chai.expect)(res.body).to.have.deep.property('email', 'Email already exist');
+      done();
+    });
+  });
   it('should not be able to sign in user with invalid email', function (done) {
     var user = {
       email: 'jane@test.com9',
@@ -45,6 +52,18 @@ describe('[Authentication] /auth Testing', function () {
       (0, _chai.expect)(res.body).to.be.an('object');
       (0, _chai.expect)(res.body).to.have.property('error');
       (0, _chai.expect)(res.body).to.have.deep.property('error', 'User not found');
+      done();
+    });
+  });
+  it('should not be able to sign in user with invalid password', function (done) {
+    var user = {
+      email: 'jane@test.com',
+      password: 'BadPass!'
+    };
+    (0, _supertest["default"])(_server["default"]).post('/api/auth/login/').send(user).set('Accept', 'application/json').expect('Content-Type', /json/).expect(401).end(function (err, res) {
+      (0, _chai.expect)(res.body).to.be.an('object');
+      (0, _chai.expect)(res.body).to.have.property('error');
+      (0, _chai.expect)(res.body).to.have.deep.property('error', 'Password incorrect');
       done();
     });
   });
