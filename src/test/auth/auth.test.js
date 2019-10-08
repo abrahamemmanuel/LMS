@@ -49,9 +49,6 @@ describe('[Authentication] /auth Testing', () => {
 
   });
 
-<<<<<<< HEAD
-  it('should not be able to sign up user with existing email in the database', done => {
-=======
   it('should not be able to sign up new user with an existing email in the database', done => {
     request(app)
       .post('/api/auth/register/')
@@ -70,7 +67,6 @@ describe('[Authentication] /auth Testing', () => {
   });
 
   it('should not be able to sign in user with invalid email', done => {
->>>>>>> master
     let user = {
       name: "jane",
       email: 'jane@test.com',
