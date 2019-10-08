@@ -76,9 +76,6 @@ describe('[Authentication] /auth Testing', () => {
       });
   });
 
-<<<<<<< HEAD
-  afterEach(function(done) {
-=======
   it('should not be able to sign in user with invalid password', done => {
     let user = {
       email: 'jane@test.com',
@@ -98,7 +95,6 @@ describe('[Authentication] /auth Testing', () => {
       });
   });
   after(function(done) {
->>>>>>> master
     return mongoose.disconnect(done);
   });
 });
