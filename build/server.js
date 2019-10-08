@@ -21,7 +21,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var app = (0, _express["default"])(); //middleware to parse requests of extended urlencoded
 
 app.use(_bodyParser["default"].urlencoded({
-  extended: true
+  extended: false
 })); //middleware to parse requests of content-type - application/json
 
 app.use(_bodyParser["default"].json());
@@ -33,27 +33,40 @@ app.use(_bodyParser["default"].json());
 
 app.get('/', function (req, res) {
   return res.status(200).json('Welcome to the Loan Management System');
-}); // DB Config
-
-var db = process.env.MONGODB_URI || _keys["default"].LOCALDB_URI; // Connect to MongDB
-
-_mongoose["default"].connect(db, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(function () {
-  return console.log('MongoDB Connected');
-})["catch"](function (err) {
-  return console.log(err);
 }); // Check env module
-
 
 var newLocal = module.parent;
 
 if (!newLocal) {
+  // DB Config
+  process.env.NODE_ENV = _keys["default"].MONGODB_URI;
+  var db = process.env.NODE_ENV; // Connect to MongDB
+
+  _mongoose["default"].connect(db, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }).then(function () {
+    return console.log('MongoDB Connected');
+  })["catch"](function (err) {
+    return console.log(err);
+  });
+
   app.listen(_keys["default"].env, function () {
     return console.log("Server running on port ".concat(_keys["default"].env));
   });
-} else {} // Load routes
+} else {
+  // DB Config
+  var _db = _keys["default"].LOCALDB_URI; // Connect to MongDB
+
+  _mongoose["default"].connect(_db, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }).then(function () {
+    return console.log('MongoDB Connected');
+  })["catch"](function (err) {
+    return console.log(err);
+  });
+} // Load routes
 
 
 var routes = _api["default"];

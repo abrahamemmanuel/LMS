@@ -9,7 +9,7 @@ const app = express();
 
 //middleware to parse requests of extended urlencoded
 app.use(bodyParser.urlencoded({
-  extended: true
+  extended: false
 }))
 //middleware to parse requests of content-type - application/json
 app.use(bodyParser.json())
@@ -24,7 +24,8 @@ app.get('/', (req, res) =>
 );
 
 // DB Config
-const db = process.env.MONGODB_URI || key.LOCALDB_URI;
+process.env.NODE_ENV = key.MONGODB_URI;
+const db = key.LOCALDB_URI || process.env.NODE_ENV;
 
   // Connect to MongDB
   mongoose
@@ -39,8 +40,6 @@ const db = process.env.MONGODB_URI || key.LOCALDB_URI;
 const newLocal = module.parent;
 if (!newLocal) {
   app.listen(key.env, () => console.log(`Server running on port ${key.env}`));
-} else {
-  
 }
 
 // Load routes
