@@ -8,15 +8,6 @@ import assert from 'assert';
 import User from '../../database/models/User';
 
 describe('[Authentication] /auth Testing', () => {
-<<<<<<< HEAD
-  beforeEach(done => {
-    //Before each test we empty the database
-    User.deleteMany({}, err => {
-      done();
-    });
-  });
-// const email = faker.internet.email();
-=======
   // beforeEach(done => {
   //   //Before each test we empty the database
   //   User.deleteMany({}, err => {
@@ -24,7 +15,6 @@ describe('[Authentication] /auth Testing', () => {
   //   });
   // });
 
->>>>>>> master
   let user = {
     name: 'jane',
     email: 'jane@test.com',
