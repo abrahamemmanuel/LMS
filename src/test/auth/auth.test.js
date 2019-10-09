@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 import request from 'supertest';
-import mongoose from 'mongoose';
 import faker from 'faker';
 import { expect } from 'chai';
+import mongoose from 'mongoose';
 import app from '../../server';
 import assert from 'assert';
 import User from '../../database/models/User';

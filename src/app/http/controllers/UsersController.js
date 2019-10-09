@@ -5,7 +5,7 @@ import gravatar from 'gravatar';
 import bcrypt from 'bcryptjs';
 import User from '../../../database/models/User';
 import jwt from 'jsonwebtoken';
-import keys from '../../../config/keys'
+import keys from '../../../config/keys';
 
 class UsersController {
   /**

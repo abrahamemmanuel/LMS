@@ -1,31 +1,35 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
+import passport from 'passport';
 import key from './config/keys';
+import { passportJwt } from './config/passport';
 import router from './routes/api';
+import { middlewares } from './app/middlewares/middlewares';
 
 // Create express server instance
 const app = express();
 
-//middleware to parse requests of extended urlencoded
-app.use(bodyParser.urlencoded({
-  extended: false
-}))
-//middleware to parse requests of content-type - application/json
-app.use(bodyParser.json())
+// Middlewares
+ middlewares(app);
+
+// Passport Config
+//passportJwt(passport);
 
 /**
- * @route GET /
- * @desc Get index route
- * @access Public
+ * @route   GET /
+ * @desc    Get index route
+ * @access  Public
  */
 app.get('/', (req, res) =>
   res.status(200).json('Welcome to the Loan Management System')
 );
 
-// DB Config
-process.env.NODE_ENV = key.MONGODB_URI;
-const db = key.LOCALDB_URI || process.env.NODE_ENV;
+// Check env module
+const newLocal = module.parent;
+if (!newLocal) {
+  // DB Config
+  process.env.NODE_ENV = key.MONGODB_PROD;
+  const db = key.MONGODB_DEV || process.env.NODE_ENV;
 
   // Connect to MongDB
   mongoose
@@ -35,11 +39,15 @@ const db = key.LOCALDB_URI || process.env.NODE_ENV;
     })
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));
-
-// Check env module
-const newLocal = module.parent;
-if (!newLocal) {
   app.listen(key.env, () => console.log(`Server running on port ${key.env}`));
+} else {
+      mongoose
+        .connect(key.MONGODB_TEST, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true
+        })
+        .then(() => console.log('MongoDB Connected'))
+        .catch(err => console.log(err));
 }
 
 // Load routes
