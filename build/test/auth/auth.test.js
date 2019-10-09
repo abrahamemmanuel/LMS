@@ -2,11 +2,11 @@
 
 var _supertest = _interopRequireDefault(require("supertest"));
 
-var _mongoose = _interopRequireDefault(require("mongoose"));
-
 var _faker = _interopRequireDefault(require("faker"));
 
 var _chai = require("chai");
+
+var _mongoose = _interopRequireDefault(require("mongoose"));
 
 var _server = _interopRequireDefault(require("../../server"));
 
@@ -18,12 +18,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 /* eslint-disable no-undef */
 describe('[Authentication] /auth Testing', function () {
-  // beforeEach(done => {
-  //   //Before each test we empty the database
-  //   User.deleteMany({}, err => {
-  //     done();
-  //   });
-  // });
+  beforeEach(function (done) {
+    //Before each test we empty the database
+    _User["default"].deleteMany({}, function (err) {
+      done();
+    });
+  });
   it('should be able to sign up new user', function (done) {
     var user = {
       name: 'admin',

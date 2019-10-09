@@ -9,26 +9,28 @@ var _express = _interopRequireDefault(require("express"));
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
 
-var _bodyParser = _interopRequireDefault(require("body-parser"));
+var _passport = _interopRequireDefault(require("passport"));
 
 var _keys = _interopRequireDefault(require("./config/keys"));
 
+var _passport2 = require("./config/passport");
+
 var _api = _interopRequireDefault(require("./routes/api"));
+
+var _middlewares = require("./app/middlewares/middlewares");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 // Create express server instance
-var app = (0, _express["default"])(); //middleware to parse requests of extended urlencoded
+var app = (0, _express["default"])(); // Middlewares
 
-app.use(_bodyParser["default"].urlencoded({
-  extended: false
-})); //middleware to parse requests of content-type - application/json
+(0, _middlewares.middlewares)(app); // Passport Config
+//passportJwt(passport);
 
-app.use(_bodyParser["default"].json());
 /**
- * @route GET /
- * @desc Get index route
- * @access Public
+ * @route   GET /
+ * @desc    Get index route
+ * @access  Public
  */
 
 app.get('/', function (req, res) {
@@ -40,7 +42,7 @@ var newLocal = module.parent;
 if (!newLocal) {
   // DB Config
   process.env.NODE_ENV = _keys["default"].MONGODB_URI;
-  var db = process.env.NODE_ENV; // Connect to MongDB
+  var db = _keys["default"].LOCALDB_URI || process.env.NODE_ENV; // Connect to MongDB
 
   _mongoose["default"].connect(db, {
     useNewUrlParser: true,
@@ -55,10 +57,9 @@ if (!newLocal) {
     return console.log("Server running on port ".concat(_keys["default"].env));
   });
 } else {
-  // DB Config
-  var _db = _keys["default"].LOCALDB_URI; // Connect to MongDB
+  process.env.NODE_ENV = _keys["default"].MONGODB_URI;
 
-  _mongoose["default"].connect(_db, {
+  _mongoose["default"].connect(_keys["default"].MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }).then(function () {
