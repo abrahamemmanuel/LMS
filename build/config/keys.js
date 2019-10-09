@@ -5,8 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 var key = {
-  LOCALDB_URI: 'mongodb://localhost:27017/loanApp',
-  MONGODB_URI: 'mongodb+srv://emmanuel:mypass123@lms-yultn.mongodb.net/LMS?retryWrites=true&w=majority',
+  MONGODB_DEV: 'mongodb://localhost/loanApp',
+  MONGODB_PROD: 'mongodb+srv://emmanuel:mypass123@lms-yultn.mongodb.net/LMS?retryWrites=true&w=majority',
+  MONGODB_TEST: 'mongodb://localhost/lms_test',
   env: process.env.PORT || 5000,
   secret: 'secret'
 };

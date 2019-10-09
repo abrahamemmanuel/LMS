@@ -41,8 +41,8 @@ var newLocal = module.parent;
 
 if (!newLocal) {
   // DB Config
-  process.env.NODE_ENV = _keys["default"].MONGODB_URI;
-  var db = _keys["default"].LOCALDB_URI || process.env.NODE_ENV; // Connect to MongDB
+  process.env.NODE_ENV = _keys["default"].MONGODB_PROD;
+  var db = _keys["default"].MONGODB_DEV || process.env.NODE_ENV; // Connect to MongDB
 
   _mongoose["default"].connect(db, {
     useNewUrlParser: true,
@@ -57,9 +57,7 @@ if (!newLocal) {
     return console.log("Server running on port ".concat(_keys["default"].env));
   });
 } else {
-  process.env.NODE_ENV = _keys["default"].MONGODB_URI;
-
-  _mongoose["default"].connect(_keys["default"].MONGODB_URI, {
+  _mongoose["default"].connect(_keys["default"].MONGODB_TEST, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }).then(function () {

@@ -28,8 +28,8 @@ app.get('/', (req, res) =>
 const newLocal = module.parent;
 if (!newLocal) {
   // DB Config
-  process.env.NODE_ENV = key.MONGODB_URI;
-  const db = key.LOCALDB_URI || process.env.NODE_ENV;
+  process.env.NODE_ENV = key.MONGODB_PROD;
+  const db = key.MONGODB_DEV || process.env.NODE_ENV;
 
   // Connect to MongDB
   mongoose
@@ -41,9 +41,8 @@ if (!newLocal) {
     .catch(err => console.log(err));
   app.listen(key.env, () => console.log(`Server running on port ${key.env}`));
 } else {
-      process.env.NODE_ENV = key.MONGODB_URI;
       mongoose
-        .connect(key.MONGODB_URI, {
+        .connect(key.MONGODB_TEST, {
           useNewUrlParser: true,
           useUnifiedTopology: true
         })

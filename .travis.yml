@@ -2,7 +2,10 @@ sudo: false
 language: node_js
 node_js:
   - stable
-  
+
+services:
+  - mongodb
+
 script: 
   - npm test
   
@@ -10,8 +13,6 @@ after_success:
   - npm run cover
   - bash <(curl -s https://codecov.io/bash)
 
-services:
-  - mongodb
-
-
+before_script:
+  - sudo /etc/init.d/mongod start
 
