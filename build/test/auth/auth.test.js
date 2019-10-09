@@ -18,12 +18,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 /* eslint-disable no-undef */
 describe('[Authentication] /auth Testing', function () {
-  beforeEach(function (done) {
-    //Before each test we empty the database
-    _User["default"].deleteMany({}, function (err) {
-      done();
-    });
-  });
+  // beforeEach(done => {
+  //   //Before each test we empty the database
+  //   User.deleteMany({}, err => {
+  //     done();
+  //   });
+  // });
   it('should be able to sign up new user', function (done) {
     var user = {
       name: 'admin',

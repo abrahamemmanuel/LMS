@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env nyc node_modules/.bin/mocha --timeout 5000 ./src/test/**/**.test.js",
+    "test": "cross-env NODE_ENV=test nyc node_modules/.bin/mocha --timeout 5000 ./src/test/**/**.test.js",
     "cover": "nyc report --reporter=text",
     "dev": "nodemon ./build/server/server.js --exec babel-node",
     "heroku-postbuild": "npm install",
