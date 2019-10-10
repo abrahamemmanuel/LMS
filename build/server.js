@@ -35,17 +35,7 @@ var app = (0, _express["default"])(); // Middlewares
 
 app.get('/', function (req, res) {
   return res.status(200).json('Welcome to the Loan Management System');
-}); // connect to test database
-
-_mongoose["default"].connect(_keys["default"].MONGODB_TEST, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(function () {
-  return console.log('MongoDB Connected');
-})["catch"](function (err) {
-  return console.log(err);
 }); // Check env module
-
 
 var newLocal = module.parent;
 
@@ -65,6 +55,15 @@ if (!newLocal) {
 
   app.listen(_keys["default"].env, function () {
     return console.log("Server running on port ".concat(_keys["default"].env));
+  });
+} else {
+  _mongoose["default"].connect(_keys["default"].MONGODB_TEST, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }).then(function () {
+    return console.log('MongoDB Connected');
+  })["catch"](function (err) {
+    return console.log(err);
   });
 } // Load routes
 
