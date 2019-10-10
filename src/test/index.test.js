@@ -20,8 +20,4 @@ describe('Should get index route', () => {
         done();
       });
   });
-
-  after(function(done) {
-    return mongoose.disconnect(done);
-  });
 });

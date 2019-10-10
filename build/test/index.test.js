@@ -24,8 +24,5 @@ describe('Should get index route', function () {
       done();
     });
   });
-  after(function (done) {
-    return _mongoose["default"].disconnect(done);
-  });
 });
 //# sourceMappingURL=index.test.js.map

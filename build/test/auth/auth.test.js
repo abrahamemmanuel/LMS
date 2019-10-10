@@ -72,5 +72,8 @@ describe('[Authentication] /auth Testing', function () {
       done();
     });
   });
+  after(function (done) {
+    return _mongoose["default"].disconnect(done);
+  });
 });
 //# sourceMappingURL=auth.test.js.map
