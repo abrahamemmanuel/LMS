@@ -23,6 +23,14 @@ const app = express();
 app.get('/', (req, res) =>
   res.status(200).json('Welcome to the Loan Management System')
 );
+// connect to test database
+    mongoose
+      .connect(key.MONGODB_TEST, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      })
+      .then(() => console.log('MongoDB Connected'))
+      .catch(err => console.log(err));
 
 // Check env module
 const newLocal = module.parent;
@@ -40,15 +48,7 @@ if (!newLocal) {
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));
   app.listen(key.env, () => console.log(`Server running on port ${key.env}`));
-} else {
-      mongoose
-        .connect(key.MONGODB_TEST, {
-          useNewUrlParser: true,
-          useUnifiedTopology: true
-        })
-        .then(() => console.log('MongoDB Connected'))
-        .catch(err => console.log(err));
-}
+} 
 
 // Load routes
 const routes = router;

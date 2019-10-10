@@ -93,4 +93,8 @@ describe('[Authentication] /auth Testing', () => {
         done();
       });
   });
+
+    after(function (done) {
+      return mongoose.disconnect(done);
+    });
 });
