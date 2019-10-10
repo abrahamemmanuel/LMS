@@ -7,8 +7,10 @@ services:
   - mongodb
 
 script: 
-  - npm test
+  - npm run test
+
+env:
+- NODE_ENV=test
   
 after_success:
   - npm run cover
-  - bash <(curl -s https://codecov.io/bash)
